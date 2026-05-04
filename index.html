@@ -1,13 +1,74 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>counter-app</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch API Practical</title>
+
+  <style>
+    body {
+      text-align: center;
+      margin-top: 25px;
+    }
+
+    button {
+      padding: 10px 20px;
+            margin-bottom: 20px;
+    }
+
+    .Bigbox {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .elem {
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 10px;
+      width: 250px;
+      text-align: left;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Fetch API Practical</h1>
+
+  <button onclick="getData()">Fetch All Todos</button>
+
+  <div class="Bigbox" id="container"></div>
+
+  <script>
+    function getData() {
+      fetch("https://jsonplaceholder.typicode.com/todos")
+        .then(response => response.json())
+        .then(data => {
+          
+          const container = document.getElementById("container");
+          container.innerHTML = ""; // clear old data
+
+          data.forEach(todo => {
+            const elem = document.createElement("div");
+        elem.className = "card";
+
+            elem.innerHTML = `
+              <p><b>ID:</b> ${todo.id}</p>
+              <p><b>Title:</b> ${todo.title}</p>
+              <p><b>Completed:</b> ${todo.completed}</p>
+            `;
+
+            container.appendChild(card);
+          });
+
+        })
+        .catch(error => {
+          console.log("Error:", error);
+        });
+    }
+  </script>
+
+</body>
 </html>
